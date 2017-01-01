@@ -3,6 +3,31 @@ class TaiwanAdressExtracter {
   constructor(string){
       this._string = string;
       this._cities = new Array();
+      this._cities.push("臺北市");
+      this._cities.push("台北市");
+      this._cities.push("基隆市");
+      this._cities.push("新北市");
+      this._cities.push("宜蘭縣");
+      this._cities.push("連江縣");
+      this._cities.push("新竹市");
+      this._cities.push("新竹縣");
+      this._cities.push("桃園市");
+      this._cities.push("苗栗縣");
+      this._cities.push("臺中市");
+      this._cities.push("台中市");
+      this._cities.push("彰化縣");
+      this._cities.push("南投縣");
+      this._cities.push("嘉義市");
+      this._cities.push("嘉義縣");
+      this._cities.push("雲林縣");
+      this._cities.push("臺南市");
+      this._cities.push("台南市");
+      this._cities.push("澎湖縣");
+      this._cities.push("金門縣");
+      this._cities.push("屏東縣");
+      this._cities.push("臺東縣");
+      this._cities.push("台東縣");
+      this._cities.push("花蓮縣");
   }
 
   getInitString(){
@@ -12,7 +37,6 @@ class TaiwanAdressExtracter {
   Process(){
     var adress = "";
     var cityReg = "(.{2}[縣市]).+";
-
     var area = ["市區","鎮區","鎮市","鄉","鎮","區","市"];
     var village = ["村","里"];
     var lin = ["鄰"];
@@ -39,7 +63,17 @@ class TaiwanAdressExtracter {
     segments.push(room);
 
 
-    adress = regEx_First(this._string,"(.{2}[縣市]).+");
+    for(var i = 0;i<this._cities.length;i++){
+      var adress_match = ""
+      adress_match += this._cities[i];
+      adress_match += ".+";
+      var tmp = regEx_First(this._string,adress_match);
+      if (tmp != ""){
+        adress = tmp;
+        break;
+      }
+    }
+    
     adress =  adress.replace(" ","");
     var adressBag = "";
     var tmpAdress = adress;
@@ -56,11 +90,11 @@ class TaiwanAdressExtracter {
       }
     }
     var numBag = "";
-    if(tmpAdress[0] == "之" || tmpAdress[0] == "-"){
+    if(Number.isInteger(Number(tmpAdress[0]))||tmpAdress[0] == "之" || tmpAdress[0] == "-"){
       numBag += tmpAdress[0];
       tmpAdress = tmpAdress.replace(numBag,"");
       for(var i = 0;i<tmpAdress.length;i++){
-        if(isCnNumber(tmpAdress[i])||Number.isInteger(tmpAdress[i])){
+        if(isCnNumber(tmpAdress[i])||Number.isInteger(Number(tmpAdress[i]))){
           numBag += tmpAdress[i];
         }else{
           break;
