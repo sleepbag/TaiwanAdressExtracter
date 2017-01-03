@@ -3,6 +3,7 @@ class TaiwanAdressExtracter {
   constructor(string){
       this._string = string;
       this._cities = new Array();
+      this._cities.push("高雄市");
       this._cities.push("臺北市");
       this._cities.push("台北市");
       this._cities.push("基隆市");
@@ -73,7 +74,7 @@ class TaiwanAdressExtracter {
         break;
       }
     }
-    
+
     adress =  adress.replace(" ","");
     var adressBag = "";
     var tmpAdress = adress;
