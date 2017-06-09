@@ -88,6 +88,56 @@ QUnit.test( "normal test 3", function( assert ) {
 QUnit.test( "city test 1", function( assert ) {
   var adress = new TaiwanAdressExtracter("商店街市集大拍賣 台北市中山北路二段1巷2號9樓2");
   var result = adress.Process();
-  console.log(result);
+  //console.log(result);
   assert.ok( result == "台北市中山北路二段1巷2號9樓2", "Passed!" );
+});
+
+QUnit.test( "city test 2", function( assert ) {
+  var adress = new TaiwanAdressExtracter("台北市中山北路二段115巷20號9樓之1");
+  var result = adress.Process();
+//  console.log(result);
+  assert.ok( result == "台北市中山北路二段115巷20號9樓之1", "Passed!" );
+});
+
+QUnit.test( "city test 3", function( assert ) {
+  var adress = new TaiwanAdressExtracter("台北市杭州南路一段15-1號11樓");
+  var result = adress.Process();
+  //console.log(result);
+  assert.ok( result == "台北市杭州南路一段15-1號11樓", "Passed!" );
+});
+
+QUnit.test( "city test 4", function( assert ) {
+  var adress = new TaiwanAdressExtracter("收貨地址：程佳雯，0937580371，台灣 新北市 汐止區新台五路一段268號2樓");
+  var result = adress.Process();
+  //console.log(result);
+  assert.ok( result == "新北市汐止區新台五路一段268號2樓", "Passed!" );
+});
+
+QUnit.test( "city test 5", function( assert ) {
+  var adress = new TaiwanAdressExtracter("新北市板橋區忠孝路127號");
+  var result = adress.Process();
+  //console.log(result);
+  assert.ok( result == "新北市板橋區忠孝路127號", "Passed!" );
+});
+
+QUnit.test( "city test 6", function( assert ) {
+  var adress = new TaiwanAdressExtracter("台北縣土城市中央路四段281-13號三樓");
+  var result = adress.Process();
+  console.log(result);
+  assert.ok( result == "新北市土城市中央路四段281-13號三樓", "Passed!" );
+});
+
+QUnit.test( "city test 7", function( assert ) {
+  var adress = new TaiwanAdressExtracter("台北市北投區台北市東華街一段502號11F");
+  var result = adress.Process();
+  console.log(result);
+  assert.ok( result == "台北市北投區東華街一段502號11F", "Passed!" );
+});
+
+
+QUnit.test( "city test 8", function( assert ) {
+  var adress = new TaiwanAdressExtracter("333桃園市龜山區文化一路259號長庚大學第一醫學大樓七樓寄生蟲科");
+  var result = adress.Process();
+  console.log(result);
+  assert.ok( result == "桃園市龜山區文化一路259號長庚大學第一醫學大樓七樓寄生蟲科", "Passed!" );
 });

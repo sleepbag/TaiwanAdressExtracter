@@ -32,3 +32,11 @@ function isCnNumber(string){
     return ex[0];
   }else{return false;}
 }
+
+function replaceIndex(string, at, search, repl) {
+  return string.replace(
+    RegExp("^(?:.*?"+search+"){" + at + "}"),
+     function(x){return x.replace(RegExp(search + "$"),
+      repl)})
+
+}

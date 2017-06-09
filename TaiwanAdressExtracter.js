@@ -8,6 +8,7 @@ class TaiwanAdressExtracter {
       this._cities.push("台北市");
       this._cities.push("基隆市");
       this._cities.push("新北市");
+      this._cities.push("台北縣");
       this._cities.push("宜蘭縣");
       this._cities.push("連江縣");
       this._cities.push("新竹市");
@@ -37,7 +38,7 @@ class TaiwanAdressExtracter {
 
   Process(){
     var adress = "";
-    var cityReg = "(.{2}[縣市]).+";
+
     var area = ["市區","鎮區","鎮市","鄉","鎮","區","市"];
     var village = ["村","里"];
     var lin = ["鄰"];
@@ -48,8 +49,9 @@ class TaiwanAdressExtracter {
     var alley = ["衖"];
     var num = ["號"];
     var level = ["樓","F"];
-    var room = ["室"];
+    var room = ["室","科"];
 
+    //分段規則
     var segments = Array();
     segments.push(area);
     segments.push(village);
@@ -69,7 +71,14 @@ class TaiwanAdressExtracter {
       adress_match += this._cities[i];
       adress_match += ".+";
       var tmp = regEx_First(this._string,adress_match);
+
+      console.log(tmp);
       if (tmp != ""){
+        tmp = replaceIndex(tmp,2,this._cities[i],"");
+        if(this._cities[i] == "台北縣"){
+          tmp = tmp.replace("台北縣","新北市");
+        }
+
         adress = tmp;
         break;
       }
