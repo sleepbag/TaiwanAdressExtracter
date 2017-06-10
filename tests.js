@@ -141,3 +141,10 @@ QUnit.test( "city test 8", function( assert ) {
   console.log(result);
   assert.ok( result == "桃園市龜山區文化一路259號長庚大學第一醫學大樓七樓寄生蟲科", "Passed!" );
 });
+
+QUnit.test( "city test 9", function( assert ) {
+  var adress = new TaiwanAdressExtracter("桃園縣蘆竹鄉吉林路103號9樓");
+  var result = adress.Process();
+  console.log(result);
+  assert.ok( result == "桃園市蘆竹鄉吉林路103號9樓", "Passed!" );
+});

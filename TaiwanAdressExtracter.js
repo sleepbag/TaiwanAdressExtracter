@@ -14,6 +14,7 @@ class TaiwanAdressExtracter {
       this._cities.push("新竹市");
       this._cities.push("新竹縣");
       this._cities.push("桃園市");
+      this._cities.push("桃園縣");
       this._cities.push("苗栗縣");
       this._cities.push("臺中市");
       this._cities.push("台中市");
@@ -77,6 +78,9 @@ class TaiwanAdressExtracter {
         tmp = replaceIndex(tmp,2,this._cities[i],"");
         if(this._cities[i] == "台北縣"){
           tmp = tmp.replace("台北縣","新北市");
+        }
+        if(this._cities[i] == "桃園縣"){
+          tmp = tmp.replace("桃園縣","桃園市");
         }
 
         adress = tmp;
