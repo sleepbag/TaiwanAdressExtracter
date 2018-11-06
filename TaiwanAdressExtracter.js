@@ -1,43 +1,52 @@
 class TaiwanAdressExtracter {
 
   constructor(string){
+    this._string=""
+    if(string!=undefined){
       this._string = string;
-      this._cities = new Array();
-      this._cities.push("高雄市");
-      this._cities.push("臺北市");
-      this._cities.push("台北市");
-      this._cities.push("基隆市");
-      this._cities.push("新北市");
-      this._cities.push("台北縣");
-      this._cities.push("宜蘭縣");
-      this._cities.push("連江縣");
-      this._cities.push("新竹市");
-      this._cities.push("新竹縣");
-      this._cities.push("桃園市");
-      this._cities.push("桃園縣");
-      this._cities.push("苗栗縣");
-      this._cities.push("臺中市");
-      this._cities.push("台中市");
-      this._cities.push("彰化縣");
-      this._cities.push("南投縣");
-      this._cities.push("嘉義市");
-      this._cities.push("嘉義縣");
-      this._cities.push("雲林縣");
-      this._cities.push("臺南市");
-      this._cities.push("台南市");
-      this._cities.push("澎湖縣");
-      this._cities.push("金門縣");
-      this._cities.push("屏東縣");
-      this._cities.push("臺東縣");
-      this._cities.push("台東縣");
-      this._cities.push("花蓮縣");
+    }
+    
+    this._cities = new Array();
+    this._cities.push("高雄市");
+    this._cities.push("臺北市");
+    this._cities.push("台北市");
+    this._cities.push("基隆市");
+    this._cities.push("新北市");
+    this._cities.push("台北縣");
+    this._cities.push("宜蘭縣");
+    this._cities.push("連江縣");
+    this._cities.push("新竹市");
+    this._cities.push("新竹縣");
+    this._cities.push("桃園市");
+    this._cities.push("桃園縣");
+    this._cities.push("苗栗縣");
+    this._cities.push("臺中市");
+    this._cities.push("台中市");
+    this._cities.push("彰化縣");
+    this._cities.push("南投縣");
+    this._cities.push("嘉義市");
+    this._cities.push("嘉義縣");
+    this._cities.push("雲林縣");
+    this._cities.push("臺南市");
+    this._cities.push("台南市");
+    this._cities.push("澎湖縣");
+    this._cities.push("金門縣");
+    this._cities.push("屏東縣");
+    this._cities.push("臺東縣");
+    this._cities.push("台東縣");
+    this._cities.push("花蓮縣");
   }
 
   getInitString(){
-    return this._string;
+    if(this._string!=undefined){
+      return this._string;
+    }
+    return "";
   }
 
   Process(){
+
+    //注意是否會有崩潰的情形
     var adress = "";
 
     var area = ["市區","鎮區","鎮市","鄉","鎮","區","市"];

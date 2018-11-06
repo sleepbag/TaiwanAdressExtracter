@@ -148,3 +148,11 @@ QUnit.test( "台北縣轉換新北市", function( assert ) {
   console.log(result);
   assert.ok( result == "新北市土城市中央路四段281-13號", "Passed!" );
 });
+
+QUnit.test( "不正確初始: undefined", function( assert ) {
+  var init = undefined;
+  var adress = new TaiwanAdressExtracter(init);
+  var result = adress.Process();
+  console.log(result);
+  assert.ok( result == "", "Passed!" );
+});
