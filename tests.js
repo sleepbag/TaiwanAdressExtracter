@@ -158,9 +158,25 @@ QUnit.test( "不正確初始: undefined", function( assert ) {
   assert.ok( result == "", "Passed!" );
 });
 
-QUnit.test( "重複市區字串", function( assert ) {
+QUnit.test( "重複市區字串-市 與 區", function( assert ) {
   var adress = new TaiwanAdressExtracter("新北市板橋區新北市板橋區忠孝路127號");
   var result = adress.Process();
   console.log(result)
   assert.ok( result == "新北市板橋區忠孝路127號", "Passed!" );
 });
+
+
+QUnit.test( "重複市區字串 - 縣 與 市", function( assert ) {
+  var adress = new TaiwanAdressExtracter("嘉義縣朴子市嘉義縣朴子市大同東路48巷12號");
+  var result = adress.Process();
+  console.log(result)
+  assert.ok( result == "嘉義縣朴子市大同東路48巷12號", "Passed!" );
+});
+
+QUnit.test( "括胡測試", function( assert ) {
+  var adress = new TaiwanAdressExtracter("台中市太平區新福路66巷36弄12號（管理室代收B17)");
+  var result = adress.Process();
+  console.log(result)
+  assert.ok( result == "台中市太平區新福路66巷36弄12號（管理室代收B17)", "Passed!" );
+});
+

@@ -49,8 +49,8 @@ class TaiwanAdressExtracter {
     //注意是否會有崩潰的情形
     var adress = "";
 
-    var city = ["市","縣"];
-    var area = ["市區","鎮區","鎮市","鄉","鎮","區","市"];
+    var city = ["縣"];
+    var area = ["市","市區","鎮區","鎮市","鄉","鎮","區"];
     var village = ["村","里"];
     var lin = ["鄰"];
     var stree = ["路","街","大道"];
@@ -61,6 +61,7 @@ class TaiwanAdressExtracter {
     var num = ["號"];
     var level = ["樓","F"];
     var room = ["室","科"];
+    var symbol = ["[)]"];
 
     //分段規則
     var segments = Array();
@@ -76,7 +77,8 @@ class TaiwanAdressExtracter {
     segments.push(num);
     segments.push(level);
     segments.push(room);
-
+    segments.push(symbol);
+    
 
     for(var i = 0;i<this._cities.length;i++){
       var adress_match = ""
@@ -106,6 +108,7 @@ class TaiwanAdressExtracter {
     
     var tmpAdress = adress;
 
+    console.log("輸入地址：" + tmpAdress);
     for(var i = 0;i<segments.length;i++){
       var segment = segments[i];
       for(var j = 0; j < segment.length;j++){
@@ -113,7 +116,9 @@ class TaiwanAdressExtracter {
         var tail = getStrinSegmentTail(tmpAdress,segment[j]);
         
         if(tail){
+          console.log("擷取詞: " + segment[j]);
           adressBagArray.push(tail)
+          
         }
 
         for(var adBagIt = 0; adBagIt<adressBagArray.length;adBagIt++){
@@ -122,20 +127,29 @@ class TaiwanAdressExtracter {
 
       }
     }
+    
+    for(var adBagIt = 0; adBagIt<adressBagArray.length;adBagIt++){
+      console.log(adBagIt + " : " + adressBagArray[adBagIt]);
+    }
 
     var adressBag = "";
     for(var adBagIt = 0; adBagIt<adressBagArray.length;adBagIt++){
       var isRepead = false;
       for(var secondIt = 0; secondIt<adBagIt;secondIt++){
+        console.log("第一層: " + adressBagArray[adBagIt]);
+        console.log("第二層: " + adressBagArray[secondIt]);
         if(adressBagArray[secondIt] == adressBagArray[adBagIt]){
+          console.log("repeat");
           isRepead = true;
           break;
         }
       }
       if(!isRepead){
         adressBag+=adressBagArray[adBagIt];
+        console.log(adressBag);
       }
     }
+    // 新北市 板橋區 新北市 板橋區 忠孝路 127號
 
     var numBag = "";
     if(Number.isInteger(Number(tmpAdress[0]))||tmpAdress[0] == "之" || tmpAdress[0] == "-"){
