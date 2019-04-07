@@ -14,7 +14,7 @@ function getStrinSegmentTail(string,segment){
 
   var tmpstring = "";
   for(var i = 0;i<string.length;i++){
-    tmpstring+=string[i];
+    tmpstring += string[i];
     var reg = ".+" + segment;
     var result = regEx_First(tmpstring,reg);
     if (result!="")

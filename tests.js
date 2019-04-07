@@ -3,6 +3,7 @@ QUnit.test( "原始測試", function( assert ) {
   var adress = new TaiwanAdressExtracter("新北市鶯歌區中山路111巷1弄1號");
   var result = adress.Process();
   //console.log(result);
+  
   assert.ok( result == "新北市鶯歌區中山路111巷1弄1號", "Passed!" );
 });
 
@@ -155,4 +156,11 @@ QUnit.test( "不正確初始: undefined", function( assert ) {
   var result = adress.Process();
   console.log(result);
   assert.ok( result == "", "Passed!" );
+});
+
+QUnit.test( "重複市區字串", function( assert ) {
+  var adress = new TaiwanAdressExtracter("新北市板橋區新北市板橋區忠孝路127號");
+  var result = adress.Process();
+  console.log(result)
+  assert.ok( result == "新北市板橋區忠孝路127號", "Passed!" );
 });

@@ -49,6 +49,7 @@ class TaiwanAdressExtracter {
     //注意是否會有崩潰的情形
     var adress = "";
 
+    var city = ["市","縣"];
     var area = ["市區","鎮區","鎮市","鄉","鎮","區","市"];
     var village = ["村","里"];
     var lin = ["鄰"];
@@ -63,6 +64,7 @@ class TaiwanAdressExtracter {
 
     //分段規則
     var segments = Array();
+    segments.push(city);
     segments.push(area);
     segments.push(village);
     segments.push(lin);
@@ -82,7 +84,7 @@ class TaiwanAdressExtracter {
       adress_match += ".+";
       var tmp = regEx_First(this._string,adress_match);
 
-      console.log(tmp);
+      //console.log(tmp);
       if (tmp != ""){
         tmp = replaceIndex(tmp,2,this._cities[i],"");
         if(this._cities[i] == "台北縣"){
@@ -98,20 +100,43 @@ class TaiwanAdressExtracter {
     }
 
     adress =  adress.replace(" ","");
-    var adressBag = "";
+
+    
+    var adressBagArray= [];
+    
     var tmpAdress = adress;
+
     for(var i = 0;i<segments.length;i++){
       var segment = segments[i];
-      for(var j = 0;j<segment.length;j++){
-        //console.log(segment[j]);
+      for(var j = 0; j < segment.length;j++){
+        //console.log("擷取分區: " + segment[j]);
         var tail = getStrinSegmentTail(tmpAdress,segment[j]);
+        
         if(tail){
-          adressBag += tail;
-          tmpAdress =  tmpAdress.replace(tail,"");
+          adressBagArray.push(tail)
+        }
+
+        for(var adBagIt = 0; adBagIt<adressBagArray.length;adBagIt++){
+          tmpAdress = tmpAdress.replace(adressBagArray[adBagIt],"");
+        }
+
+      }
+    }
+
+    var adressBag = "";
+    for(var adBagIt = 0; adBagIt<adressBagArray.length;adBagIt++){
+      var isRepead = false;
+      for(var secondIt = 0; secondIt<adBagIt;secondIt++){
+        if(adressBagArray[secondIt] == adressBagArray[adBagIt]){
+          isRepead = true;
           break;
         }
       }
+      if(!isRepead){
+        adressBag+=adressBagArray[adBagIt];
+      }
     }
+
     var numBag = "";
     if(Number.isInteger(Number(tmpAdress[0]))||tmpAdress[0] == "之" || tmpAdress[0] == "-"){
       numBag += tmpAdress[0];
